@@ -15,7 +15,7 @@ namespace lec1
         private static int SIZE;
         static void Main(string[] args)
         {
-            var exit = false;
+            bool exit = false;
             while (!exit)
             {
                 Console.WriteLine("Введите размер матрицы");
@@ -40,10 +40,11 @@ namespace lec1
                 int current = 1, next = -1;
                 while (true)
                 {
+                    int x, y;
                     var input = current == -1 ? 0 : current;
                     Console.WriteLine($"Ввод {input}. Введите пару координат в одной строке, x и y");
                     var temp = Console.ReadLine()?.Split(' ');
-                    if (temp == null || temp.Length != 2 || !int.TryParse(temp[0], out var x) || !int.TryParse(temp[1], out var y))
+                    if (temp == null || temp.Length != 2 || !int.TryParse(temp[0], out x) || !int.TryParse(temp[1], out y))
                     {
                         Console.WriteLine("Неверный формат данных");
                         continue;
