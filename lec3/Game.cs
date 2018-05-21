@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace lec3
 {
@@ -11,85 +16,81 @@ namespace lec3
 
     static class Game
     {
-        public static Mark CurrentTurn { get; private set; }
-        private static readonly Mark[,] Field;
-        private static readonly int[] Rows, Cols;
-        private static int MainDiag { get; set; }
-        private static int CollatDiag { get; set; }
-        private static int Size => 3;
+        private static Mark currentTurn;
+        private static Mark[,] field;
+        private static int[] rows, cols;
+        private static int mainDiag, collatDiag;
+        private static int SIZE => 3;
 
         static Game()
         {
-            Field = new Mark[Size, Size];
-            Rows = new int[Size];
-            Cols = new int[Size];
+            field = new Mark[SIZE,SIZE];
+            for (var i = 0; i < SIZE; i++)
+            {
+                for (var j = 0; j < SIZE; j++)
+                {
+                    field[i,j] = Mark.NotSet;
+                }
+            }
         }
 
         public static void Init()
         {
-            for (var i = 0; i < Size; i++)
-            for (var j = 0; j < Size; j++)
-                Field[i, j] = Mark.NotSet;
-
-            for (var i = 0; i < Size; i++)
-            {
-                Cols[i] = 0;
-                Rows[i] = 0;
-            }
-            MainDiag = CollatDiag = 0;
-
-            CurrentTurn = Mark.X;
+            currentTurn = Mark.X;
+            var a = new int[5];
         }
 
-        public static bool MakeMove(int x, int y)
+        public static void Move(int x, int y)
         {
-            var input = CurrentTurn == Mark.O ? -1 : 1;
+            var input = currentTurn == Mark.O ? -1 : 1;
 
-            Field[x, y] = CurrentTurn;
+            field[x, y] = currentTurn;
             Fill(x, y, input);
             if (Check(x, y))
             {
-                return true;
+                
             }
 
-            CurrentTurn = CurrentTurn == Mark.X ? Mark.O : Mark.X;
-            return false;
+            currentTurn = currentTurn == Mark.X ? Mark.O : Mark.X;
         }
 
         private static bool Check(int x, int y)
         {
-            if (Rows[x] == Size || Rows[x] == -Size)
+            if (rows[x] == SIZE || rows[x] == -SIZE)
             {
-                Console.WriteLine(@"Заполнена строка");
+                Console.WriteLine("Заполнена строка");
                 return true;
             }
 
-            if (Cols[y] == Size || Cols[y] == -Size)
+            if (cols[y] == SIZE || cols[y] == -SIZE)
             {
-                Console.WriteLine(@"Заполнен столбец");
+                Console.WriteLine("Заполнен столбец");
                 return true;
             }
 
-            if (MainDiag == Size)
+            if (mainDiag == SIZE)
             {
-                Console.WriteLine(@"Заполнена диагональ");
+                Console.WriteLine("Заполнена диагональ");
                 return true;
             }
 
-            if (CollatDiag != Size) return false;
-            Console.WriteLine(@"Заполнена вторая диагональ");
-            return true;
+            if (collatDiag == SIZE)
+            {
+                Console.WriteLine("Заполнена вторая диагональ");
+                return true;
+            }
 
+            return false;
         }
 
         private static void Fill(int x, int y, int current)
         {
-            Rows[x] += current;
-            Cols[y] += current;
+            rows[x] += current;
+            cols[y] += current;
             if (x == y)
-                MainDiag += current;
-            if (x == Size - 1 - y)
-                CollatDiag += current;
+                mainDiag += current;
+            if (x == SIZE - 1 - y)
+                collatDiag += current;
         }
     }
 }
