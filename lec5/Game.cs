@@ -10,24 +10,21 @@ namespace lec5
         NotSet
     }
 
-    static class Game
+    public class Game
     {
-        public static Mark CurrentTurn { get; private set; }
-        private static readonly Mark[,] Field;
-        private static readonly int[] Rows, Cols;
-        private static int MainDiag { get; set; }
-        private static int CollatDiag { get; set; }
-        private static int Size => 3;
+        public Mark CurrentTurn { get; private set; }
+        private readonly Mark[,] Field;
+        private readonly int[] Rows, Cols;
+        private int MainDiag { get; set; }
+        private int CollatDiag { get; set; }
+        private int Size { get; }
 
-        static Game()
+        public Game(int size = 3, Mark beginningTurn = Mark.X)
         {
+            Size = size;
             Field = new Mark[Size, Size];
             Rows = new int[Size];
             Cols = new int[Size];
-        }
-
-        public static void Init()
-        {
             for (var i = 0; i < Size; i++)
                 for (var j = 0; j < Size; j++)
                     Field[i, j] = Mark.NotSet;
@@ -39,10 +36,10 @@ namespace lec5
             }
             MainDiag = CollatDiag = 0;
 
-            CurrentTurn = Mark.X;
+            CurrentTurn = beginningTurn;
         }
 
-        public static bool MakeMove(int x, int y)
+        public bool MakeMove(int x, int y)
         {
             var input = CurrentTurn == Mark.O ? -1 : 1;
 
@@ -50,7 +47,7 @@ namespace lec5
             Fill(x, y, input);
             if (Check(x, y))
             {
-                Program.gameModel.Games.Add(new GameEntity()
+                Program.gameModel.Games.Add(new GameEntity
                 {
                     Date = DateTime.Now,
                     Winner = CurrentTurn.ToString()
@@ -64,7 +61,7 @@ namespace lec5
             return false;
         }
 
-        private static bool Check(int x, int y)
+        private bool Check(int x, int y)
         {
             if (Rows[x] == Size || Rows[x] == -Size)
             {
@@ -76,16 +73,15 @@ namespace lec5
                 return true;
             }
 
-            if (MainDiag == Size)
+            if (MainDiag == Size || MainDiag == -Size)
             {
                 return true;
             }
 
-            if (CollatDiag != Size) return false;
-            return true;
+            return CollatDiag == Size || CollatDiag == -Size;
         }
 
-        private static void Fill(int x, int y, int current)
+        private void Fill(int x, int y, int current)
         {
             Rows[x] += current;
             Cols[y] += current;

@@ -7,6 +7,8 @@ namespace lec5
 {
     public partial class Form1 : Form
     {
+        public static Game game;
+
         public Form1()
         {
             InitializeComponent();
@@ -42,8 +44,8 @@ namespace lec5
                 buttonMatrix[i, j].Enabled = true;
             }
 
-            Game.Init();
-            currentTurnLabel.Text = Game.CurrentTurn.ToString();
+            game = new Game();
+            currentTurnLabel.Text = game.CurrentTurn.ToString();
         }
 
         private void button_Click(object sender, EventArgs e)
@@ -51,18 +53,18 @@ namespace lec5
             var coords = ((Button) sender).Name.Split('-');
             var x = int.Parse(coords.First());
             var y = int.Parse(coords.Last());
-            ((Button) sender).Text = Game.CurrentTurn.ToString();
+            ((Button) sender).Text = game.CurrentTurn.ToString();
             ((Button) sender).Enabled = false;
 
-            if (Game.MakeMove(x, y))
+            if (game.MakeMove(x, y))
             {
-                if (MessageBox.Show($@"Победил игрок {Game.CurrentTurn.ToString()}. Повторить игру?", @"Игра закончена",
+                if (MessageBox.Show($@"Победил игрок {game.CurrentTurn.ToString()}. Повторить игру?", @"Игра закончена",
                         MessageBoxButtons.YesNo) == DialogResult.Yes)
                     Start();
                 else
                     Close();
             }
-            currentTurnLabel.Text = Game.CurrentTurn.ToString();
+            currentTurnLabel.Text = game.CurrentTurn.ToString();
         }
 
         private void restartButton_Click(object sender, EventArgs e)
@@ -77,8 +79,8 @@ namespace lec5
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Results form = new Results();
-            form.Show();
+            var resultsForm = new Results();
+            resultsForm.Show();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
