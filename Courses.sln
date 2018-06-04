@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lec3", "lec3\lec3.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lec5", "lec5\lec5.csproj", "{AE8E258D-138F-45A0-8D1C-A55522109466}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lec5Test", "lec5Test\lec5Test.csproj", "{2B8CDBA9-DB24-487B-9C72-1BC835F7D3C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AE8E258D-138F-45A0-8D1C-A55522109466}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE8E258D-138F-45A0-8D1C-A55522109466}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE8E258D-138F-45A0-8D1C-A55522109466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B8CDBA9-DB24-487B-9C72-1BC835F7D3C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8CDBA9-DB24-487B-9C72-1BC835F7D3C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8CDBA9-DB24-487B-9C72-1BC835F7D3C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8CDBA9-DB24-487B-9C72-1BC835F7D3C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

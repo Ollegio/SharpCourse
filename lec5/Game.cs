@@ -10,14 +10,14 @@ namespace lec5
         NotSet
     }
 
-    public class Game
+    public class Game : IGame
     {
         public Mark CurrentTurn { get; private set; }
-        private readonly Mark[,] Field;
-        private readonly int[] Rows, Cols;
-        private int MainDiag { get; set; }
-        private int CollatDiag { get; set; }
-        private int Size { get; }
+        protected readonly Mark[,] Field;
+        protected readonly int[] Rows, Cols;
+        protected int MainDiag { get; set; }
+        protected int CollatDiag { get; set; }
+        protected int Size { get; }
 
         public Game(int size = 3, Mark beginningTurn = Mark.X)
         {
@@ -47,13 +47,6 @@ namespace lec5
             Fill(x, y, input);
             if (Check(x, y))
             {
-                Program.gameModel.Games.Add(new GameEntity
-                {
-                    Date = DateTime.Now,
-                    Winner = CurrentTurn.ToString()
-                }
-                    );
-                Program.gameModel.SaveChanges();
                 return true;
             }
 

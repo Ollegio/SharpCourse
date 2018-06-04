@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using lec5.Entities;
 
 namespace lec5
 {
@@ -58,6 +59,13 @@ namespace lec5
 
             if (game.MakeMove(x, y))
             {
+                Program.gameModel.Games.Add(new GameEntity
+                    {
+                        Date = DateTime.Now,
+                        Winner = game.CurrentTurn.ToString()
+                    }
+                );
+                Program.gameModel.SaveChanges();
                 if (MessageBox.Show($@"Победил игрок {game.CurrentTurn.ToString()}. Повторить игру?", @"Игра закончена",
                         MessageBoxButtons.YesNo) == DialogResult.Yes)
                     Start();
